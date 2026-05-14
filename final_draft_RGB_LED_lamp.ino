@@ -12,17 +12,16 @@
   Auther      : www.freenove.com
   Modification: 2024/07/01
 **********************************************************************/
-#define PIN_LED    2
 #define PIN_BUTTON 13
 const byte ledPins[] = {38, 39, 40};    //define red, green, blue led pins
 const byte chns[] = {0, 1, 2};          //define the pwm channels
 int red, green, blue;
 // the setup function runs once when you press reset or power the board
 void setup() {
-  // initialize digital pin PIN_LED as an output.
-  pinMode(PIN_LED, OUTPUT);
+  // initialize digital pin PIN_BUTTON as input.
   pinMode(PIN_BUTTON, INPUT);
-  for (int i = 0; i < 3; i++) {   //setup the pwm channels,1KHz,8bit
+  //setup the pwm channels,1KHz,8bit
+  for (int i = 0; i < 3; i++) {   
     ledcAttachChannel(ledPins[i], 1000, 8, chns[i]);
   }
 }
@@ -40,12 +39,7 @@ void loop() {
     while (digitalRead(PIN_BUTTON) == LOW);
     delay(20);
     while (digitalRead(PIN_BUTTON) == LOW);
-    reverseGPIO(PIN_LED);
   }
-}
-
-void reverseGPIO(int pin) {
-  digitalWrite(pin, !digitalRead(pin));
 }
 
 void setColor(byte r, byte g, byte b) {
