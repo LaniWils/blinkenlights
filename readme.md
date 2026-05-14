@@ -4,9 +4,12 @@ This project uses the ESP32 and Arduino IDE to set up an RGB LED light that chan
 
 
 ## Materials List
-1 Breadboard with ESP32 and extension board attachede
+1 Breadboard with ESP32 and extension board attached
+
 1 RGB LED
+
 6 M/M jumpers
+
 5 220Ω resistors 
 
 
