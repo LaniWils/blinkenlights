@@ -15,6 +15,9 @@ This project uses the ESP32 and Arduino IDE to set up an RGB LED light that chan
 5 220Ω resistors 
 
 
+<img width="624" height="202" alt="Screenshot 2026-05-14 at 17 01 06" src="https://github.com/user-attachments/assets/b124ac68-49c8-47b4-af19-24789e8b1c77" />
+
+
 ## Wiring the Breadboard
 
 ### The Light
