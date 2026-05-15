@@ -35,154 +35,152 @@ On the other side of the trench, connect one side of the button to another row u
 
 ## Raw Code 
 
-#define PIN_BUTTON 13
+    #define PIN_BUTTON 13
 
-const byte ledPins[] = {38, 39, 40};    //define red, green, blue led pins
-
-const byte chns[] = {0, 1, 2};          //define the pwm channels
-
-int red, green, blue;
-
-// the setup function runs once when you press reset or power the board
-
-void setup() {
-
-  // initialize digital pin PIN_LED as an output.
-  
-  pinMode(PIN_BUTTON, INPUT);
-  
-  for (int i = 0; i < 3; i++) {   //setup the pwm channels,1KHz,8bit
-  
-    ledcAttachChannel(ledPins[i], 1000, 8, chns[i]);
+    const byte ledPins[] = {38, 39, 40};    //define red, green, blue led pins
     
-  }
-
-}
-
-// the loop function runs over and over again forever
-
-void loop() {
-
-  if (digitalRead(PIN_BUTTON) == LOW) {
-  
-    delay(20);
+    const byte chns[] = {0, 1, 2};          //define the pwm channels
     
-    if (digitalRead(PIN_BUTTON) == LOW) {
+    int red, green, blue;
     
-      red = random(0, 256);
+    // the setup function runs once when you press reset or power the board
+    
+    void setup() {
+    
+      // initialize digital pin PIN_BUTTON as input.
       
-      green = random(0, 256);
+      pinMode(PIN_BUTTON, INPUT);
       
-      blue = random(0, 256);
+      //setup the pwm channels,1KHz,8bit
       
-      setColor(red, green, blue);
+      for (int i = 0; i < 3; i++) {   
       
+        ledcAttachChannel(ledPins[i], 1000, 8, chns[i]);
+      
+      }
+    
     }
-
-    while (digitalRead(PIN_BUTTON) == LOW);
     
-    delay(20);
+    // the loop function runs over and over again forever
     
-    while (digitalRead(PIN_BUTTON) == LOW);
+    void loop() {
     
-  }
-  
-}
-
-
-void reverseGPIO(int pin) {
-
-  digitalWrite(pin, !digitalRead(pin));
-
-}
-
-
-void setColor(byte r, byte g, byte b) {
-
-  ledcWrite(ledPins[0], 255 - r); //Common anode LED, low level to turn on the led.
-  
-  ledcWrite(ledPins[1], 255 - g);
-  
-  ledcWrite(ledPins[2], 255 - b);
-  
-}
-
+      if (digitalRead(PIN_BUTTON) == LOW) {
+      
+        delay(20);
+        
+        if (digitalRead(PIN_BUTTON) == LOW) {
+        
+          red = random(0, 256);
+          
+          green = random(0, 256);
+          
+          blue = random(0, 256);
+          
+          setColor(red, green, blue);
+        
+        }
+        
+        while (digitalRead(PIN_BUTTON) == LOW);
+        
+        delay(20);
+        
+        while (digitalRead(PIN_BUTTON) == LOW);
+      
+      }
+    
+    }
+    
+    void setColor(byte r, byte g, byte b) {
+    
+      ledcWrite(ledPins[0], 255 - r); //Common anode LED, low level to turn on the led.
+      
+      ledcWrite(ledPins[1], 255 - g);
+      
+      ledcWrite(ledPins[2], 255 - b);
+    
+    }
 
 
 ## Descriptions of Source Code Parts
 
 ### This part establishes which pins will be used for the LEDs and button:
 
-#define PIN_BUTTON 13
+    #define PIN_BUTTON 13
 
-const byte ledPins[] = {38, 39, 40};    //define red, green, blue led pins
-
-const byte chns[] = {0, 1, 2};          //define the pwm channels
-
-int red, green, blue;
-
-// the setup function runs once when you press reset or power the board
-
+    const byte ledPins[] = {38, 39, 40};    //define red, green, blue led pins
+    
+    const byte chns[] = {0, 1, 2};          //define the pwm channels
+    
+    int red, green, blue;
+    
 
 ### This part establishes that the pins for the LEDs will send signals while the one for the button will receive them:
 
-void setup() {
-
-  // initialize digital pin PIN_BUTTON as input.
-
-  pinMode(PIN_BUTTON, INPUT);
-  
-  for (int i = 0; i < 3; i++) {   //setup the pwm channels,1KHz,8bit
-  
-    ledcAttachChannel(ledPins[i], 1000, 8, chns[i]);
-
-  }
-
-}
+     // the setup function runs once when you press reset or power the board
+    
+    void setup() {
+    
+      // initialize digital pin PIN_BUTTON as input.
+      
+      pinMode(PIN_BUTTON, INPUT);
+      
+      //setup the pwm channels,1KHz,8bit
+      
+      for (int i = 0; i < 3; i++) {   
+      
+        ledcAttachChannel(ledPins[i], 1000, 8, chns[i]);
+      
+      }
+    
+    }
 
 
 ### This part is the main code, which determines whether a button is pushed and generates new random colors if it is: 
 
-void loop() {
-
-  if (digitalRead(PIN_BUTTON) == LOW) {
-  
-    delay(20);
+    // the loop function runs over and over again forever
     
-    if (digitalRead(PIN_BUTTON) == LOW) {
+    void loop() {
     
-      red = random(0, 256);
+      if (digitalRead(PIN_BUTTON) == LOW) {
       
-      green = random(0, 256);
+        delay(20);
+        
+        if (digitalRead(PIN_BUTTON) == LOW) {
+        
+          red = random(0, 256);
+          
+          green = random(0, 256);
+          
+          blue = random(0, 256);
+          
+          setColor(red, green, blue);
+        
+        }
+        
+        while (digitalRead(PIN_BUTTON) == LOW);
+        
+        delay(20);
+        
+        while (digitalRead(PIN_BUTTON) == LOW);
       
-      blue = random(0, 256);
-      
-      setColor(red, green, blue);
-
+      }
+    
     }
-    
-    while (digitalRead(PIN_BUTTON) == LOW);
-    
-    delay(20);
-    
-    while (digitalRead(PIN_BUTTON) == LOW);
-    
-  }
-  
-}
 
 
 ### This part sets the LEDs to their new colors (when called by the main code as part of the loop): 
 
-void setColor(byte r, byte g, byte b) {
- 
-  ledcWrite(ledPins[0], 255 - r); //Common anode LED, low level to turn on the led.
-  
-  ledcWrite(ledPins[1], 255 - g);
-  
-  ledcWrite(ledPins[2], 255 - b);
-  
-}
+    void setColor(byte r, byte g, byte b) {
+    
+      ledcWrite(ledPins[0], 255 - r); //Common anode LED, low level to turn on the led.
+      
+      ledcWrite(ledPins[1], 255 - g);
+      
+      ledcWrite(ledPins[2], 255 - b);
+    
+    }
+
 
 
 ## Link to code
